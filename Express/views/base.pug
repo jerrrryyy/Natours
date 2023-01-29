@@ -1,0 +1,41 @@
+doctype html 
+html 
+    head 
+        block head
+            meta(charset='UTF-8')
+            meta(name='viewport' content='width=device-width, initial-scale=1.0')
+            title Natours | #{title}
+            link(rel='stylesheet' href='/css/style.css' )
+            link(rel='shortcut icon' type='image/png' href='/img/favicon.png') 
+            link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
+
+ 
+    body
+        //- below is the bufferCode:- code that adds something on the html
+        //- h1= tour
+        //- h2= user.toUpperCase()
+        //- //- h1 The park Camper
+
+        //- //-now below is the unBufferCode:- code that does not add somethign to the html
+        //- - const x = 9
+        //- h2= 2*x
+        //- p This is some text
+
+        //HEADER
+        include _header
+
+        //Content
+        block content
+            h1 This is a placeholder heading
+
+        //Footer
+        include _footer
+
+        //- script(src='/js/mapbox.js')
+        //- script(src='/js/login.js')
+        //- script(src='https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.3/axios.min.js')
+        script(src='https://js.stripe.com/v3/')
+        script(src='/js/bundle.js')
+
+
+    
