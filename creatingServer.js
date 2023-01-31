@@ -26,7 +26,7 @@ const server = http.createServer((req,res)=>{
 
    
    const {query,path}=  url.parse(req.url,true)
-   console.log(path,query)
+ //  console.log(path,query)
 
   
     //OVERVIEW PAGE

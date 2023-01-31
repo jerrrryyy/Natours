@@ -8,11 +8,13 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser')
+const compression = require('compression');
 
 const morgan = require('morgan');
 const app = express();
 const AppError = require('./utils/appError');
 const errorController = require('./Handlers/errorController');
+
 
 const tourRouter = require('./Routes/tourRoutes');
 const userRouter = require('./Routes/userRoutes');
@@ -75,6 +77,8 @@ app.use(
   })
 );
 
+app.use(compression())
+
 if (process.env.NODE_ENV == 'development') {
   app.use(morgan('dev'));
 }
@@ -88,7 +92,7 @@ app.use(express.static(path.join(__dirname,'public')));
 //this middleware apply to every single route
 
 app.use((req, res, next) => {
-  console.log('hello from the Middleware');
+ // console.log('hello from the Middleware');
   //adding date to the req
   req.requestTime = new Date().toISOString();
   //we used next() so that now the request move to the next route function

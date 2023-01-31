@@ -101,7 +101,7 @@ reviewSchema.pre(/^findOneAnd/, async function (next) {
   //using this.r(query variable) so that we can use it in post middleware
   //we can only use the calcAverageRatings function in post when query is executed
   this.r = await this.findOne();
-  console.log(this.r);
+ // console.log(this.r);
   next();
 });
 
