@@ -34,15 +34,16 @@ app.set('views',path.join(__dirname,'views'))
 //so that people can accesss our data using url 
 app.use(cors())
 //changing origins
-// app.use(cors({
-//   origin:'https://www.natours.com'
-// }))
+app.use(cors({
+  origin:'https://www.natours.com'
+}))
 
 //similiar to app.get or app.post it is just the 
-app.options('*',cors())
+// app.options('*',cors())
 
 
 //security middlewares
+
 
 
 //security http headers

@@ -27,7 +27,7 @@ const createSendToken = (user, statusCode, req,res) => {
     ), //also converting to miliseconds
 
     httpOnly: true, //so that browser can't modify the cookie
-    secure: req.secure || req.headers('x-forwarded-proto') === 'https', // cookie only be send on the encrypted connection
+    secure: req.secure || req.header('x-forwarded-proto') === 'https', // cookie only be send on the encrypted connection
   });
   //201 for creating new user
   res.status(statusCode).json({
