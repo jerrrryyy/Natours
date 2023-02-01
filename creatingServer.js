@@ -72,3 +72,13 @@ const server = http.createServer((req,res)=>{
 //     console.log("yep listening to the server")
 // })
 
+
+//SIGTERM SIGNAL 
+
+//heroku shutdown the server after 24 hour by sending sigterm signals 
+process.on('SIGTERM',()=>{
+    console.log('SIGTERM RECEIVED ! SHUTTING DOWN GRACEFULLY')
+    server.close(()=>{
+        console.log('Process terminated !')
+    })
+})

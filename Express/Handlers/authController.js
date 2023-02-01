@@ -14,27 +14,21 @@ const signToken = (id) => {
   });
 };
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req,res) => {
   const token = signToken(user._id);
 
   //sending a cookie
-
-  const cookieOptions = {
+  //we only need the encrypted cookie in the production
+  //remove the password from the output
+  user.password = undefined;
+  res.cookie('jwt', token, {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ), //also converting to miliseconds
-    // secure: true, // cookie only be send on the encrypted connection
+
     httpOnly: true, //so that browser can't modify the cookie
-  };
-
-  //we only need the encrypted cookie in the production
-  if (process.env.NODE_ENV === 'production') {
-    cookieOptions.secure = true;
-  }
-
-  //remove the password from the output
-  user.password = undefined;
-  res.cookie('jwt', token, cookieOptions);
+    secure: req.secure || req.headers('x-forwarded-proto') === 'https', // cookie only be send on the encrypted connection
+  });
   //201 for creating new user
   res.status(statusCode).json({
     status: 'success',
@@ -51,7 +45,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   console.log(url)
   //awaiting a async email
  await new Email(newUser,url).sendWelcome()
-  createSendToken(newUser, 201, res);
+  createSendToken(newUser, 201,req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -71,7 +65,7 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   //if everything is ok we send a token
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req,res);
 });
 
 
@@ -257,7 +251,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   //3.) update changePasswordAt property for the user
   //4.) log the user in , send JWT
 
-  createSendToken(user, 201, res);
+  createSendToken(user, 201, req,res);
 });
 
 //updateing the password
@@ -286,5 +280,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
 
   //4.)log user in , send JWT
 
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req,res);
 });

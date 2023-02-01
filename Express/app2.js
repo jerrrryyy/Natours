@@ -21,6 +21,9 @@ const userRouter = require('./Routes/userRoutes');
 const viewRouter = require('./Routes/viewRoutes')
 const reviewRouter = require('./Routes/reviewRoutes')
 const bookingRouter = require('./Routes/bookingRoutes');
+
+app.enable('trust proxy')
+
 //pug template
 app.set('view engine','pug')
 app.set('views',path.join(__dirname,'views'))
