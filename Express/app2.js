@@ -9,6 +9,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser')
 const compression = require('compression');
+const cors = require('cors')
 
 const morgan = require('morgan');
 const app = express();
@@ -27,6 +28,19 @@ app.enable('trust proxy')
 //pug template
 app.set('view engine','pug')
 app.set('views',path.join(__dirname,'views'))
+
+//it will add couples of headers in our response
+//to make our response a cors :- cross origin request
+//so that people can accesss our data using url 
+app.use(cors())
+//changing origins
+// app.use(cors({
+//   origin:'https://www.natours.com'
+// }))
+
+//similiar to app.get or app.post it is just the 
+app.options('*',cors())
+
 
 //security middlewares
 
@@ -112,7 +126,7 @@ app.use((req, res, next) => {
 
 
 app.use('/',viewRouter)
-app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/reviews', reviewRouter); // we can also use cors on specific route by adding cors() to req
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/bookings', bookingRouter);
