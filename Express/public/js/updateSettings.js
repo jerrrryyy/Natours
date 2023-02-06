@@ -16,6 +16,9 @@ export const updateData = async (data, type) => {
     });
     if (res.data.status == 'success') {
       showAlert('success ', `${type.toUpperCase()} updated successfully!`);
+      window.setTimeout(()=>{
+        location.assign('/me')
+      },4000)
      
     }
   } catch (err) {

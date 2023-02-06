@@ -142,11 +142,14 @@ exports.isLoggedIn = async (req, res, next) => {
     if (freshUser.changePasswordAfter(decode.iat)) {
       return next();
     }
+    
 
 
     //there is a logged in user
     //each pug template has user varible
+        req.user = freshUser;
     res.locals.user = freshUser;
+
     return next();
   }
   catch(err){

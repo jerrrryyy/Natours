@@ -57,6 +57,13 @@ exports.createBookingCheckout = catchAsync(async(req,res,next)=>{
   //redirecting the req to the overview route but this time without query string
   res.redirect(req.originalUrl.split('?')[0])
 })
+
+exports.setTourUserIds = (req,res,next)=>{
+  if(!req.body.tour) req.body.tour = req.params.userId;
+  if(!req.body.user) req.body.user = req.user.id;
+}
+
+
 exports.createBooking = factory.createOne(Booking)
 exports.deleteBooking = factory.deleteOne(Booking)
 exports.updateBooking = factory.updateOne(Booking)

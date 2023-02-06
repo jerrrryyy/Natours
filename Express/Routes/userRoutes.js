@@ -1,6 +1,8 @@
 const express = require('express');
 const handler = require('./../Handlers/UserHandler');
 const authorization = require('./../Handlers/authController');
+const reviewRouter = require('./../Routes/reviewRoutes');
+const bookingRouter = require('./../Routes/bookingRoutes');
 
 
 
@@ -9,6 +11,8 @@ const authorization = require('./../Handlers/authController');
 const router = express.Router();
 
 //users route()
+
+router.use('/:userId/bookings',bookingRouter)
 
 router.post('/signup', authorization.signup);
 router.post('/login', authorization.login);

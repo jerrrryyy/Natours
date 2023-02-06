@@ -4,6 +4,10 @@ import { displayMap } from './mapbox';
 import { logout } from './login';
 import { updateData } from './updateSettings';
 import {bookTour} from './stripe'
+import { showAlert } from './alerts';
+import {signUp} from './signUp'
+import {review} from './writeReview'
+import {deleteReview} from './deleteReview'
 
 
 
@@ -16,11 +20,18 @@ import {bookTour} from './stripe'
 const mapbox = document.getElementById('map');
 const loginForm = document.querySelector('.form--login');
 const logOutBtn = document.querySelector('.nav__el--logout');
+
 //picking up the form from the html
 const userDataForm = document.querySelector('.form-user-data');
 const userPasswordForm = document.querySelector('.form-user-password');
 
 const bookbtn = document.getElementById('book-tour')
+const deleteReviewbtn = document.getElementById('deleteReviewbtn');
+
+const signUpForm = document.querySelector('.form--sign')
+const reviewForm = document.querySelector('.form--review')
+
+const idForm = document.getElementById('form-id')
 
 
 
@@ -41,8 +52,21 @@ if (loginForm) {
     const password = document.getElementById('password').value;
     login(email, password);
   });
+  
 }
 
+//sign up functionality
+if(signUpForm){
+  signUpForm.addEventListener('submit', e=>{
+    e.preventDefault();
+
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    signUp(name,email,password,passwordConfirm)
+  })
+}
 if(logOutBtn) logOutBtn.addEventListener('click',logout)
 
 
@@ -81,7 +105,7 @@ if(userPasswordForm){
 
 if(bookbtn){
   bookbtn.addEventListener('click', e=>{
-    e.target.textContent = 'Processing.....'
+    e.target.textContent = 'loading.....'
     //e.target is the element that trigger that event :- button
     const {tourId} = e.target.dataset;
   
@@ -90,3 +114,31 @@ if(bookbtn){
   })
 }
 
+
+
+if(reviewForm){
+  reviewForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const tourId = idForm.dataset.id
+    const reviewo = document.getElementById('reviewArea').value;
+    const rating = document.getElementById('rating').value;
+   
+    review(reviewo,rating,tourId);
+  });
+
+}
+
+const alertMessage = document.querySelector('body').dataset.alert
+if(alertMessage) showAlert('success',alertMessage,10)
+
+
+if (deleteReviewbtn) {
+  deleteReviewbtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    //e.target is the element that trigger that event :- button
+    const { deleteId } = e.target.dataset;
+    
+    deleteReview(deleteId);
+  });
+}

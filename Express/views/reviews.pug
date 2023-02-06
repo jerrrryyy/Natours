@@ -1,0 +1,15 @@
+extends base
+
+block content 
+    main.main
+        .login-form#form-id(data-id=`${tourid}`)
+            h2.heading-secondary.ma-bt-lg  Review
+            form.form.form--review
+                .form__group
+                    label.form__label(for= 'review') write a Review
+                    textarea#reviewArea.form__input(name="reviewArea", cols="30", rows="10")
+                .form__group
+                    label.form__label(for='rating') Rating out of 5
+                    input#rating.form__input(type='number', required)
+                .form__group
+                    button.btn.btn--green Submit

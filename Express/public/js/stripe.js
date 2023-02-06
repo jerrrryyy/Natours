@@ -6,6 +6,8 @@ const strip = Stripe(
   'pk_test_51MURBRGbMau8DwGtdvN1kBWxLd0ZsrPXxokm4VV1er3PRZx6Mh1j1r9UUpq8ccKRIUMwqwC8wr0DPwf103BkezAn00txepMxIO'
 );
 
+
+//booking a tour 
 export const bookTour = async tourId =>{
 
 

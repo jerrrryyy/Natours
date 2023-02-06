@@ -8,7 +8,7 @@ const dotenv = require('dotenv');
 
 process.on('uncaughtException',err =>{
   console.log('UNCAUGHT EXCePTION ! shutting down.....');
-  console.log(err.name,err.message);
+  console.log(err.name,err.message,err.stack);
 
   process.exit(1); // code 1 for uncall exception and code 0 is for success
  
@@ -67,12 +67,12 @@ process.on('unhandledRejection', (err) => {
 //SIGTERM SIGNAL 
 
 //heroku shutdown the server after 24 hour by sending sigterm signals 
-process.on('SIGTERM',()=>{
-    console.log('SIGTERM RECEIVED ! SHUTTING DOWN GRACEFULLY')
-    server.close(()=>{
-        console.log('Process terminated !')
-    })
-})
+// process.on('SIGTERM',()=>{
+//     console.log('SIGTERM RECEIVED ! SHUTTING DOWN GRACEFULLY')
+//     server.close(()=>{
+//         console.log('Process terminated !')
+//     })
+// })
 
 
 

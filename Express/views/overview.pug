@@ -30,7 +30,7 @@ block content
                         .card__data 
                             svg.card__icon 
                                 use(xlink:href='/img/icons.svg#icon-user')
-                            span= `${tour.maxGroupSize} people` 
+                            span= `${tour.maxGroupSize} people`          
                     .card__footer 
                         p
                             span.card__footer-value= `$${tour.price} `
@@ -41,5 +41,7 @@ block content
                             |                      
                             span.card__footer-text= `rating (${tour.ratingsQuantity})`
                         a.btn.btn--green.btn--small(href=`/tour/${tour.slug}`) Details
+                    -if(bookings)
+                        a.btn.btn--green.btn--small(href=`/writeReview/${tour._id}`) write a review
 
 
